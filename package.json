@@ -7,13 +7,18 @@
     "start": "node ./src/index.mjs"
   },
   "keywords": [],
-  "author": "",
+  "author": "Syed Ali Aun",
   "license": "ISC",
-  "description": "",
+  "description": "API using ExpressJS",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mysql2": "^3.10.2"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21"
+  }
 }
