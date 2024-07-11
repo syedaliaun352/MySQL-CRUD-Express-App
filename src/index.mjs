@@ -40,6 +40,19 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+app.get('/api/products', async (req, res) => {
+  try {
+    let sql = 'SELECT * FROM products';
+    const [results] = await pool.query(sql);
+    res.json(results);
+  } catch (error) {
+    res.sendStatus(500);
+    console.error("Error fetching products:", error);
+    
+  }
+
+})
+
 app.get('/api/users/:id', async (req, res) => {
   const userid = parseInt(req.params.id);
 
