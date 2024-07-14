@@ -1,5 +1,5 @@
 {
-  "name": "express-api",
+  "name": "mysql-crud-express",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
@@ -8,8 +8,8 @@
   },
   "keywords": [],
   "author": "Syed Ali Aun",
-  "license": "ISC",
-  "description": "MySQL CRUD API using ExpressJS",
+  "license": "MIT",
+  "description": "MySQL CRUD using ExpressJS",
   "dependencies": {
     "argon2": "^0.40.3",
     "cors": "^2.8.5",
