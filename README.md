@@ -35,7 +35,7 @@ PORT=<optional, default is 4300>
 
 Base URL: `/api`
 
-- `POST /register`: Registers a new user.
+- `POST /register`: Registers a new user. (username, email, password<hashed> for now)
 - `GET /users`: Retrieves a list of all users.
 - `GET /users/:id`: Retrieves a user by ID.
 - `PUT /users/:id`: Updates a user by ID.
