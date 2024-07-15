@@ -28,9 +28,8 @@ HOST=<MySQL database host>
 USER=<MySQL database user>
 PASSWORD=<MySQL database password>
 DATABASE=<MySQL database name>
-PORT=<optional, default is 3000>
-4. Run the application:
-npm start
+PORT=<optional, default is 4300>
+4. Run the application: npm start
 
 ## API Endpoints
 
