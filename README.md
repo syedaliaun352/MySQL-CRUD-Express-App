@@ -24,11 +24,13 @@ This Node.js Express application provides a basic CRUD API for managing users in
 1. Clone this repository.
 2. Install dependencies: npm install
 3. Create a `.env` file in the project root with the following environment variables:
-HOST=<MySQL database host>
-USER=<MySQL database user>
-PASSWORD=<MySQL database password>
-DATABASE=<MySQL database name>
-PORT=<optional, default is 4300>
+
+- HOST=localhost  # Replace with your host or domain
+- USER=your_mysql_user
+- PASSWORD=your_mysql_password
+- DATABASE=your_database_name
+- PORT=4300  # Optional, default is 4300
+
 4. Run the application: npm start
 
 ## API Endpoints
