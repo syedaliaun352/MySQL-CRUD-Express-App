@@ -8,6 +8,7 @@ This Node.js Express application provides a basic CRUD API for managing users in
 
 - User registration, retrieval, update, and deletion
 - Error handling middleware
+- Hashed Password
 
 ## Dependencies
 
@@ -49,7 +50,7 @@ Base URL: `/api`
 - `USER`: MySQL database user
 - `PASSWORD`: MySQL database password
 - `DATABASE`: MySQL database name
-- `PORT`: Application port (optional, default is 3000)
+- `PORT`: Application port (optional, default is 4300)
 
 ## Usage
 
