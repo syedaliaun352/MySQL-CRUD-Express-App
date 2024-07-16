@@ -2,7 +2,7 @@ import pool from '../db.mjs';
 import argon2 from 'argon2';
 
 export const registerUser = async (req, res) => {
-  const { username, email, plainpassword } = req.body;
+  const { username, email, plainpassword, age = null, gender = null } = req.body;
 
   if (!username || !email || !plainpassword) {
     return res.status(400).json({ message: 'Missing required fields' });
@@ -10,8 +10,8 @@ export const registerUser = async (req, res) => {
 
   try {
     const hash = await argon2.hash(plainpassword);
-    const sql = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
-    const [results] = await pool.query(sql, [username, email, hash]);
+    const sql = 'INSERT INTO users (username, email, password, age, gender) VALUES (?, ?, ?, ?, ?)';
+    const [results] = await pool.query(sql, [username, email, hash, age, gender]);
 
     if (results.affectedRows > 0) {
       res.json({ message: 'User Registered!' });
@@ -85,7 +85,7 @@ export const deleteUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const userid = parseInt(req.params.id);
-  const { username, email, plainpassword } = req.body;
+  const { username, email, plainpassword, age = null, gender = null } = req.body;
 
   if (isNaN(userid)) {
     return res.status(400).json({ error: 'Invalid user ID' });
@@ -97,8 +97,8 @@ export const updateUser = async (req, res) => {
 
   try {
     const hash = await argon2.hash(plainpassword);
-    const sql = 'UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?';
-    const [results] = await pool.query(sql, [username, email, hash, userid]);
+    const sql = 'UPDATE users SET username = ?, email = ?, password = ?, age = ?, gender = ? WHERE id = ?';
+    const [results] = await pool.query(sql, [username, email, hash, age, gender, userid]);
 
     if (results.affectedRows > 0) {
       res.status(200).json({ message: 'User updated successfully' });
