@@ -18,7 +18,7 @@ dotenv.config();
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'api_user',
-    password: 'api1992',
+    password: '',
     database: 'api_db',
     waitForConnections: true,
     connectionLimit: 10,
