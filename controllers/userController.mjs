@@ -110,3 +110,14 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+export const getProducts = async (req, res) => {
+  try {
+    const sql = 'SELECT * FROM products';
+    const [results] = await pool.query(sql);
+    res.json(results);
+  } catch (err) {
+    console.error('Error fetching products:', err);
+    res.sendStatus(500);
+  }
+};

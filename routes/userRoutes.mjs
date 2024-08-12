@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, getUsers, getUserById, deleteUser, updateUser } from '../controllers/userController.mjs';
+import { registerUser, getUsers, getUserById, deleteUser, updateUser, getProducts } from '../controllers/userController.mjs';
 import { validateRegisterInput } from '../validations/userValidation.mjs';
 import limiter from '../middlewares/ratelimit.mjs';
 
@@ -10,5 +10,6 @@ router.get('/users',limiter, getUsers);
 router.get('/users/:id',limiter, getUserById);
 router.delete('/users/:id',limiter, deleteUser);
 router.put('/users/:id', limiter, updateUser);
+router.get('/products', limiter, getProducts);
 
 export default router;

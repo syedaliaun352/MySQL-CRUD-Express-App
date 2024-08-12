@@ -3,26 +3,27 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const pool = mysql.createPool({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
+// for windows
+// const pool = mysql.createPool({
+//   host: process.env.HOST,
+//   user: process.env.USER,
+//   password: process.env.PASSWORD,
+//   database: process.env.DATABASE,
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0
+// });
 
 // for linux
-// const pool = mysql.createPool({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'database_name',
-//     waitForConnections: true,
-//     connectionLimit: 10,
-//     queueLimit: 0
-//   });
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'api_user',
+    password: 'api1992',
+    database: 'api_db',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+  });
 
 (async () => {
     try {
