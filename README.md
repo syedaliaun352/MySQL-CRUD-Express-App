@@ -16,7 +16,7 @@ This Node.js Express application provides a basic CRUD API for managing users in
 - cors
 - dotenv
 - mysql2
-- argon2
+- bcrypt
 - express-rate-limit
 - express-validator
 
