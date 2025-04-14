@@ -5,11 +5,18 @@ import limiter from '../middlewares/ratelimit.mjs';
 
 const router = express.Router();
 
-router.post('/register',limiter, validateRegisterInput, registerUser);
-router.get('/users',limiter, getUsers);
-router.get('/users/:id',limiter, getUserById);
-router.delete('/users/:id',limiter, deleteUser);
-router.put('/users/:id', limiter, updateUser);
-router.get('/products', limiter, getProducts);
+router.post('/register', limiter, validateRegisterInput, registerUser);
+
+router.route('/users')
+    .get(limiter, getUsers);
+
+router.route('/users/:id')
+    .all(limiter)
+    .get(getUserById)
+    .delete(deleteUser)
+    .put(updateUser);
+
+router.route('/products')
+    .get(limiter, getProducts);
 
 export default router;

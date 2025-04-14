@@ -30,7 +30,7 @@ This Node.js Express application provides a basic CRUD API for managing users in
 
 ## API Endpoints
 
-Base URL: `/api`
+Base URL: `/api/v1/users`
 
 - `POST /register`: Registers a new user.
 - `GET /users`: Retrieves a list of all users.
@@ -48,7 +48,7 @@ Base URL: `/api`
 
 ## Usage
 
-The API can be accessed at `http://localhost:4300/api` (adjust port number as per your configuration).
+The API can be accessed at `http://localhost:4300/api/v1/users` (adjust port number as per your configuration).
 
 ## License
 

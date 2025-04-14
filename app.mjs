@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 app.use(cors()); // not needed in production
 app.use(express.json());
 
-app.use('/api', userRoutes);
+app.use('/api/v1/users', userRoutes);
 
 app.use(errorHandler);
 
