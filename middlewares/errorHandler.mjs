@@ -1,39 +1,24 @@
 export default (err, req, res, next) => {
-  const errorResponse = {
+  const response = {
     error: {
-      code: err.code || 'GENERIC_ERROR',
-      message: 'Something went wrong',
-      details: []
+      message: err.message || 'Something went wrong',
+      ...(err.code && { code: err.code })
     }
   };
-  let statusCode = err.statusCode || 500;
+  const statusCode = err.statusCode || 500;
 
-  if (err.name === 'ValidationError') {
-    statusCode = 400;
-    errorResponse.error.message = 'Validation failed';
-    errorResponse.error.details = err.details;
-  } else if (err.code === 'ER_DUP_ENTRY') {
-    statusCode = 409;
-    errorResponse.error.message = 'Duplicate entry conflict';
-  } else if (err.status === 404) {
-    statusCode = 404;
-    errorResponse.error.message = 'Resource not found';
-  }
+  // Development-only details
   if (process.env.NODE_ENV === 'development') {
-    console.error('Error Stack:', err.stack);
-    errorResponse.error.stack = err.stack;
-  } else {
-    console.error('Error:', {
-      message: err.message,
-      code: err.code,
-      route: req.originalUrl
-    });
+    response.error = {
+      ...response.error,
+      stack: err.stack,
+      originalError: {
+        name: err.name,
+        details: err.details
+      }
+    };
+    console.error('Error:', err);
   }
 
-  if (statusCode === 500) {
-    errorResponse.error.message = 'Internal server error';
-  } else if (err.message && statusCode < 500) {
-    errorResponse.error.message = err.message;
-  }
-  res.status(statusCode).json(errorResponse);
+  res.status(statusCode).json(response);
 };

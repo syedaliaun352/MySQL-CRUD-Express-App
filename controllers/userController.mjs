@@ -16,7 +16,7 @@ export const registerUser = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(plainpassword, 10);
     const [result] = await pool.query(
-      'INSERT INTO users (username, email, password, age, gender) VALUES (?, ?, ?, ?, ?)',
+      'INSERT INTO users (username, email, password_hash, age, gender) VALUES (?, ?, ?, ?, ?)',
       [username, email, hashPassword, age, gender]
     );
 
@@ -26,7 +26,8 @@ export const registerUser = async (req, res) => {
     });
   } catch (error) {
     console.error('Registration error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500)
+    throw new Error("Failed to register user");
   }
 };
 
@@ -38,7 +39,8 @@ export const getUsers = async (req, res) => {
     res.json(users);
   } catch (error) {
     console.error('Get users error:', error);
-    res.status(500).json({ error: 'Failed to fetch users' });
+    res.status(500)
+    throw new Error("Failed to fetch users");
   }
 };
 
@@ -46,7 +48,8 @@ export const getUserById = async (req, res) => {
   const userId = parseInt(req.params.id);
 
   if (isNaN(userId)) {
-    return res.status(400).json({ error: 'Invalid user ID format' });
+    res.status(400)
+    throw new Error("Invalid user ID format");
   }
 
   try {
@@ -56,13 +59,15 @@ export const getUserById = async (req, res) => {
     );
 
     if (user.length === 0) {
-      return res.status(404).json({ error: 'User not found' });
+      res.status(404)
+      throw new Error("User not found");
     }
 
     res.json(user[0]);
   } catch (error) {
     console.error('Get user error:', error);
-    res.status(500).json({ error: 'Failed to fetch user' });
+    throw new Error("Failed to fetch user");
+
   }
 };
 
@@ -71,7 +76,8 @@ export const updateUser = async (req, res) => {
   const { username, email, plainpassword, age, gender } = req.body;
 
   if (isNaN(userId)) {
-    return res.status(400).json({ error: 'Invalid user ID format' });
+    res.status(400)
+    throw new Error("Invalid user ID format");
   }
 
   try {
@@ -81,7 +87,8 @@ export const updateUser = async (req, res) => {
     );
 
     if (existing.length === 0) {
-      return res.status(404).json({ error: 'User not found' });
+      res.status(404)
+      throw new Error("User not found");
     }
 
     if (username || email) {
@@ -98,25 +105,25 @@ export const updateUser = async (req, res) => {
     const updateData = {
       username: username || existing[0].username,
       email: email || existing[0].email,
-      password: existing[0].password,
+      password_hash: existing[0].password_hash,
       age: age ?? existing[0].age,
       gender: gender ?? existing[0].gender
     };
     if (plainpassword) {
-      updateData.password = await bcrypt.hash(plainpassword, 10);
+      updateData.password_hash = await bcrypt.hash(plainpassword, 10);
     }
     const [result] = await pool.query(
       `UPDATE users SET
         username = ?,
         email = ?,
-        password = ?,
+        password_hash = ?,
         age = ?,
         gender = ?
        WHERE id = ?`,
       [
         updateData.username,
         updateData.email,
-        updateData.password,
+        updateData.password_hash,
         updateData.age,
         updateData.gender,
         userId
@@ -126,7 +133,9 @@ export const updateUser = async (req, res) => {
     res.json({ message: 'User updated successfully' });
   } catch (error) {
     console.error('Update error:', error);
-    res.status(500).json({ error: 'Failed to update user' });
+    res.status(500)
+    throw new Error("Failed to update user");
+
   }
 };
 
@@ -134,7 +143,8 @@ export const deleteUser = async (req, res) => {
   const userId = parseInt(req.params.id);
 
   if (isNaN(userId)) {
-    return res.status(400).json({ error: 'Invalid user ID format' });
+    res.status(400)
+    throw new Error("Invalid user ID format");
   }
 
   try {
@@ -144,24 +154,15 @@ export const deleteUser = async (req, res) => {
     );
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'User not found' });
+      res.status(404)
+      throw new Error("User not found");
     }
 
     res.json({ message: 'User deleted successfully' });
   } catch (error) {
     console.error('Delete error:', error);
-    res.status(500).json({ error: 'Failed to delete user' });
-  }
-};
+    res.status(500)
+    throw new Error("Failed to delete user");
 
-export const getProducts = async (req, res) => {
-  try {
-    const [products] = await pool.query(
-      'SELECT * FROM products'
-    );
-    res.json(products);
-  } catch (error) {
-    console.error('Get products error:', error);
-    res.status(500).json({ error: 'Failed to fetch products' });
   }
 };

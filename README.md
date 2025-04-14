@@ -24,7 +24,7 @@ This Node.js Express application provides a basic CRUD API for managing users in
 
 1. Clone this repository.
 2. Install dependencies: npm install
-3. Create a `.env` file in the project root with the following environment variables: HOST, USER, PASSWORD, DATABASE, PORT
+3. Create a `.env` file in the project root with the following environment variables: DB_HOST,DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, SERVER_PORT
 
 4. Run the application: npm start
 
@@ -32,7 +32,7 @@ This Node.js Express application provides a basic CRUD API for managing users in
 
 Base URL: `/api/v1/users`
 
-- `POST /register`: Registers a new user.
+- `POST /users/register`: Registers a new user.
 - `GET /users`: Retrieves a list of all users.
 - `GET /users/:id`: Retrieves a user by ID.
 - `PUT /users/:id`: Updates a user by ID.
@@ -40,11 +40,11 @@ Base URL: `/api/v1/users`
 
 ## Environment Variables
 
-- `HOST`: MySQL database host
-- `USER`: MySQL database user
-- `PASSWORD`: MySQL database password
-- `DATABASE`: MySQL database name
-- `PORT`: Application port (optional, default is 4300)
+- `DB_HOST`: MySQL database host
+- `DB_USER`: MySQL database user
+- `DB_PASSWORD`: MySQL database password
+- `DB_NAME`: MySQL database name
+- `SERVER_PORT`: Application port (optional, default is 4300)
 
 ## Usage
 
